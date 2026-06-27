@@ -1,0 +1,106 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #FD6804;
+  --color-primary-orange: #FD6804;
+  --color-primary-pink: #D8227A;
+  --color-primary-purple: #592893;
+  --color-accent-teal: #0789bb;
+  --color-accent-green: #8BC34A;
+  --color-accent-yellow: #fef3d5;
+  --color-bg-light: #FDFBF7;
+  --color-text-dark: #2C2624;
+  --color-text-muted: #726A67;
+  --color-border-light: #F2ECE4;
+  
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+}
+
+:root {
+  --background: #FDFBF7;
+  --foreground: #2C2624;
+}
+
+body {
+  background-color: var(--color-bg-light);
+  color: var(--color-text-dark);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* Custom styles for Aishwarya Yogshala */
+
+.text-gradient {
+  background: linear-gradient(135deg, #FD6804, #D8227A, #592893);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+.badge-gradient {
+  background: linear-gradient(135deg, rgba(253, 104, 4, 0.1), rgba(216, 34, 122, 0.1));
+  color: #D8227A;
+  padding: 6px 16px;
+  border-radius: 9999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.curve-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  z-index: 10;
+}
+
+.curve-bottom svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.floating-accent {
+  animation: floatingAnimation 6s ease-in-out infinite;
+}
+
+@keyframes floatingAnimation {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FDFBF7;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D8227A;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #592893;
+}
+
+/* Animations */
+.animate-pulse-slow {
+  animation: pulseAnimation 2s infinite;
+}
+
+@keyframes pulseAnimation {
+  0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4); }
+  70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}

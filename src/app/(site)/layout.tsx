@@ -1,0 +1,144 @@
+import type { Metadata } from "next";
+import { Poppins, JetBrains_Mono } from "next/font/google";
+import { PopupProvider } from "@/components/PopupContext";
+import PopupDialog from "@/components/PopupDialog";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import { client, urlFor } from "@/lib/sanity.client";
+import { settingsQuery } from "@/lib/sanity.queries";
+import Script from "next/script";
+import "../globals.css";
+
+// Revalidate all pages using this layout every 60 seconds
+export const revalidate = 60;
+
+const poppins = Poppins({
+  variable: "--font-poppins",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+});
+
+export const metadata: Metadata = {
+  title: "Aishwarya Yogshala | Authentic Yoga & Holistic Wellness",
+  description: "Empowering lives through authentic yoga and holistic wellness. Join live online group yoga classes, 21-Day Yoga Foundation courses, and certified programs led by Aishwarya Sharma.",
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/images/logo.jpeg", type: "image/jpeg" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/images/logo.jpeg",
+  },
+};
+
+export default async function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  const settings: any = null;
+  const companyLogoUrl = undefined;
+
+  return (
+    <html
+      lang="en"
+      className={`${poppins.variable} ${jetbrainsMono.variable} h-full antialiased dark`}
+      style={{ colorScheme: "dark" }}
+    >
+      <head>
+        {/* Google Tag Manager */}
+        {settings?.googleTagManagerId && (
+          <Script
+            id="gtm-script"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `
+                (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+                })(window,document,'script','dataLayer','${settings.googleTagManagerId}');
+              `,
+            }}
+          />
+        )}
+
+        {/* Google Analytics */}
+        {settings?.googleAnalyticsId && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${settings.googleAnalyticsId}`}
+              strategy="afterInteractive"
+            />
+            <Script
+              id="ga-script"
+              strategy="afterInteractive"
+              dangerouslySetInnerHTML={{
+                __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', '${settings.googleAnalyticsId}');
+                `,
+              }}
+            />
+          </>
+        )}
+
+        {/* Microsoft Clarity */}
+        {settings?.microsoftClarityId && (
+          <Script
+            id="clarity-script"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `
+                (function(c,l,a,r,i,t,y){
+                    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+                })(window,document,"clarity","script","${settings.microsoftClarityId}");
+              `,
+            }}
+          />
+        )}
+
+        {/* Custom Head HTML Injection */}
+        {settings?.customHeadHtml && (
+          <style dangerouslySetInnerHTML={{ __html: `</style>${settings.customHeadHtml}<style>` }} />
+        )}
+
+        {/* Custom Head Scripts Injection */}
+        {settings?.customHeadScripts && (
+          <style dangerouslySetInnerHTML={{ __html: `</style>${settings.customHeadScripts}<style>` }} />
+        )}
+      </head>
+      <body className="min-h-full flex flex-col bg-[#07090E] text-[#F8FAFC]">
+        <PopupProvider>
+          {/* Download Dialog Modal */}
+          <PopupDialog />
+
+          {/* Sticky Header */}
+          <Header siteName={settings?.siteName} logoUrl={companyLogoUrl} />
+          
+          {/* Main App Page content */}
+          <div className="flex flex-col flex-1 pt-[80px]">
+            {children}
+          </div>
+          
+          {/* General Footer */}
+          <Footer 
+            siteName={settings?.siteName} 
+            companyName={settings?.companyName} 
+            supportEmail={settings?.supportEmail}
+          />
+        </PopupProvider>
+      </body>
+    </html>
+  );
+}
