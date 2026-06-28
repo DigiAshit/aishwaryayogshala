@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import Link from "next/link";
+import { usePopup } from "./PopupContext";
 import { Mail, Phone } from "lucide-react";
 
 interface FooterProps {
@@ -14,6 +15,7 @@ const Footer: React.FC<FooterProps> = ({
   companyName = "Aishwarya Yogshala",
   supportEmail = "sharmaaishwarya582@gmail.com",
 }) => {
+  const { openPopup } = usePopup();
   return (
     <footer className="bg-[#201A18] text-[#FDFBF7]/80 pt-20 pb-10 border-t border-[#F2ECE4]/10" id="footer">
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
@@ -75,7 +77,7 @@ const Footer: React.FC<FooterProps> = ({
           <ul className="flex flex-col gap-3 text-sm text-[#FDFBF7]/60 font-medium">
             <li><Link href="/#policies" className="hover:text-white transition-colors">Studio Policies</Link></li>
             <li><Link href="/#faqs" className="hover:text-white transition-colors">Frequently Asked Questions</Link></li>
-            <li><Link href="/#contact" className="hover:text-white transition-colors">Book Consultation</Link></li>
+            <li><Link href="/#contact" onClick={(e) => { e.preventDefault(); openPopup(); }} className="hover:text-white transition-colors">Book Consultation</Link></li>
           </ul>
         </div>
       </div>

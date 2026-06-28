@@ -30,7 +30,7 @@ export async function getPageMetadata(seo: SeoSettings | undefined, defaultTitle
     console.error('Error fetching site settings for metadata:', err)
   }
 
-  const siteName = settings?.siteName || 'CrawlBeast'
+  const siteName = settings?.siteName || 'Aishwarya Yogshala'
   
   // Resolve title
   const rawTitle = seo?.metaTitle || settings?.defaultMetaTitle || defaultTitle
@@ -59,12 +59,11 @@ export async function getPageMetadata(seo: SeoSettings | undefined, defaultTitle
     description,
     icons: {
       icon: [
-        { url: "/favicon.ico" },
-        { url: "/favicon.png", type: "image/png" },
-        { url: "/crawlBeast.png", type: "image/png" },
+        { url: "/icon.jpeg" },
+        { url: "/images/logo.jpeg", type: "image/jpeg" },
       ],
-      shortcut: "/favicon.ico",
-      apple: "/crawlBeast.png",
+      shortcut: "/icon.jpeg",
+      apple: "/images/logo.jpeg",
     },
     alternates: canonical ? { canonical } : undefined,
     robots: {

@@ -2,69 +2,54 @@
 import React, { useState } from "react";
 import { usePopup } from "./PopupContext";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Mail, User, CheckCircle, ArrowRight } from "lucide-react";
+import { X, Phone, Mail, User, CheckCircle, MessageSquare } from "lucide-react";
 
 const PopupDialog: React.FC = () => {
   const { isOpen, closePopup } = usePopup();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    program: "",
+    message: ""
+  });
   const [error, setError] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
-    if (!name || !name.trim()) {
+    const { name, email, phone, program, message } = formData;
+
+    if (!name.trim()) {
       setError("Name is required");
       return;
     }
-    if (!email || !email.trim()) {
+    if (!email.trim()) {
       setError("Email is required");
       return;
     }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      setError("Email must be valid");
+    if (!phone.trim()) {
+      setError("Phone number is required");
+      return;
+    }
+    if (!program) {
+      setError("Please select a program");
       return;
     }
 
-    setIsLoading(true);
-
-    try {
-      const res = await fetch("/api/leads", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: name.trim(),
-          email: email.trim().toLowerCase(),
-        }),
-      });
-
-      const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data.error || "Submission failed");
-      }
-
-      setIsLoading(false);
-      setIsSubmitted(true);
-      
-      // Delay closing modal and redirecting
-      setTimeout(() => {
-        setIsSubmitted(false);
-        setName("");
-        setEmail("");
-        closePopup();
-        window.location.href = `/download?email=${encodeURIComponent(email)}&name=${encodeURIComponent(name)}`;
-      }, 1500);
-    } catch (err: any) {
-      setIsLoading(false);
-      setError(err.message || "Failed to submit lead");
-    }
+    const messageText = `Namaste Aishwarya Yogshala! 🙏\n\nI would like to schedule a consultation / enroll in a program.\n\n*Name:* ${name}\n*Email:* ${email}\n*Phone:* ${phone}\n*Program:* ${program}\n*Notes:* ${message || "None."}`;
+    const waUrl = `https://wa.me/918130171173?text=${encodeURIComponent(messageText)}`;
+    
+    window.open(waUrl, "_blank");
+    closePopup();
   };
 
   return (
@@ -76,10 +61,8 @@ const PopupDialog: React.FC = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => {
-              if (!isLoading && !isSubmitted) closePopup();
-            }}
-            className="fixed inset-0 bg-black/75 backdrop-blur-md"
+            onClick={closePopup}
+            className="fixed inset-0 bg-[#2C2624]/60 backdrop-blur-md"
           />
 
           {/* Modal Container */}
@@ -88,116 +71,143 @@ const PopupDialog: React.FC = () => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 10 }}
             transition={{ type: "spring", duration: 0.4 }}
-            className="relative w-full max-w-md overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-[#0e1629] to-[#06080d] p-8 shadow-2xl"
+            className="relative w-full max-w-md overflow-hidden rounded-3xl border border-[#F2ECE4] bg-[#FDFBF7] p-8 shadow-2xl z-10 text-[#2C2624]"
           >
             {/* Glowing Accent Border */}
-            <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-primary to-secondary" />
+            <div className="absolute top-0 left-0 right-0 h-[4px] bg-gradient-to-r from-[#FD6804] to-[#D8227A]" />
 
             {/* Close Button */}
-            {!isLoading && !isSubmitted && (
-              <button
-                onClick={closePopup}
-                className="absolute top-4 right-4 text-zinc-500 hover:text-white transition-colors p-1 hover:bg-white/5 rounded-full"
-                aria-label="Close modal"
-              >
-                <X className="h-4 w-4" />
-              </button>
-            )}
+            <button
+              onClick={closePopup}
+              className="absolute top-4 right-4 text-[#726A67] hover:text-[#D8227A] transition-colors p-1 hover:bg-[#F2ECE4]/50 rounded-full"
+              aria-label="Close modal"
+            >
+              <X className="h-5 w-5" />
+            </button>
 
-            {!isSubmitted ? (
-              <div>
-                <h3 className="text-xl font-bold tracking-tight text-white mb-2">
-                  Download CrawlBeast
-                </h3>
-                <p className="text-xs text-zinc-400 mb-6 leading-relaxed">
-                  Crawl up to 1,000 URLs for free natively on your desktop. Enter your details to generate your activation link.
-                </p>
+            <div>
+              <h3 className="font-serif font-bold text-2xl text-[#2C2624] mb-1.5">
+                Book Your Consultation
+              </h3>
+              <p className="text-xs text-[#726A67] mb-6 leading-relaxed">
+                Fill in your details to check timings and batch availability. Submitting will redirect you to direct WhatsApp chat with Coach Aishwarya.
+              </p>
 
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  {/* Name field */}
-                  <div className="text-left">
-                    <label className="block text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-1.5 pl-0.5">
-                      Full Name
-                    </label>
-                    <div className="relative">
-                      <span className="absolute inset-y-0 left-0 flex items-center pl-3.5 text-zinc-500">
-                        <User className="h-4 w-4" />
-                      </span>
-                      <input
-                        type="text"
-                        required
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        placeholder="Andrej Karpathy"
-                        className="w-full bg-[#06080d]/60 border border-zinc-850 focus:border-primary/50 rounded-xl py-3 pl-10 pr-4 text-sm text-white placeholder-zinc-650 outline-none transition-all focus:ring-1 focus:ring-primary/30"
-                      />
-                    </div>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                {/* Name field */}
+                <div className="text-left">
+                  <label className="block text-[10px] font-bold text-[#2C2624] uppercase tracking-widest mb-1.5 pl-0.5">
+                    Full Name
+                  </label>
+                  <div className="relative">
+                    <span className="absolute inset-y-0 left-0 flex items-center pl-3.5 text-[#726A67]">
+                      <User className="h-4 w-4" />
+                    </span>
+                    <input
+                      type="text"
+                      name="name"
+                      required
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      placeholder="Enter your full name"
+                      className="w-full bg-white border border-[#F2ECE4] focus:border-[#D8227A] rounded-xl py-2.5 pl-10 pr-4 text-xs text-[#2C2624] outline-none transition-all"
+                    />
                   </div>
+                </div>
 
-                  {/* Email field */}
-                  <div className="text-left">
-                    <label className="block text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-1.5 pl-0.5">
-                      Email Address
-                    </label>
-                    <div className="relative">
-                      <span className="absolute inset-y-0 left-0 flex items-center pl-3.5 text-zinc-500">
-                        <Mail className="h-4 w-4" />
-                      </span>
-                      <input
-                        type="email"
-                        required
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="andrej@openai.com"
-                        className="w-full bg-[#06080d]/60 border border-zinc-850 focus:border-primary/50 rounded-xl py-3 pl-10 pr-4 text-sm text-white placeholder-zinc-650 outline-none transition-all focus:ring-1 focus:ring-primary/30"
-                      />
-                    </div>
+                {/* Email field */}
+                <div className="text-left">
+                  <label className="block text-[10px] font-bold text-[#2C2624] uppercase tracking-widest mb-1.5 pl-0.5">
+                    Email Address
+                  </label>
+                  <div className="relative">
+                    <span className="absolute inset-y-0 left-0 flex items-center pl-3.5 text-[#726A67]">
+                      <Mail className="h-4 w-4" />
+                    </span>
+                    <input
+                      type="email"
+                      name="email"
+                      required
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      placeholder="Enter your email address"
+                      className="w-full bg-white border border-[#F2ECE4] focus:border-[#D8227A] rounded-xl py-2.5 pl-10 pr-4 text-xs text-[#2C2624] outline-none transition-all"
+                    />
                   </div>
+                </div>
 
-                  {error && (
-                    <p className="text-xs text-red-500 text-left px-1 mb-2 font-medium">{error}</p>
-                  )}
+                {/* Phone field */}
+                <div className="text-left">
+                  <label className="block text-[10px] font-bold text-[#2C2624] uppercase tracking-widest mb-1.5 pl-0.5">
+                    WhatsApp Number
+                  </label>
+                  <div className="relative">
+                    <span className="absolute inset-y-0 left-0 flex items-center pl-3.5 text-[#726A67]">
+                      <Phone className="h-4 w-4" />
+                    </span>
+                    <input
+                      type="tel"
+                      name="phone"
+                      required
+                      value={formData.phone}
+                      onChange={handleInputChange}
+                      placeholder="Enter your WhatsApp number"
+                      className="w-full bg-white border border-[#F2ECE4] focus:border-[#D8227A] rounded-xl py-2.5 pl-10 pr-4 text-xs text-[#2C2624] outline-none transition-all"
+                    />
+                  </div>
+                </div>
 
-                  {/* Submit Button */}
-                  <button
-                    type="submit"
-                    disabled={isLoading}
-                    className="w-full mt-2 bg-gradient-to-r from-primary to-secondary text-white font-semibold py-3 px-6 rounded-xl text-sm transition-all hover:brightness-110 active:scale-98 disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-primary/20 hover:shadow-primary/30 duration-300"
+                {/* Program Selection */}
+                <div className="text-left">
+                  <label className="block text-[10px] font-bold text-[#2C2624] uppercase tracking-widest mb-1.5 pl-0.5">
+                    Select Program
+                  </label>
+                  <select
+                    name="program"
+                    required
+                    value={formData.program}
+                    onChange={handleInputChange}
+                    className="w-full bg-white border border-[#F2ECE4] focus:border-[#D8227A] rounded-xl py-2.5 px-4 text-xs text-[#2C2624] outline-none transition-all"
                   >
-                    {isLoading ? (
-                      <span className="flex items-center gap-2">
-                        <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
-                        Generating License...
-                      </span>
-                    ) : (
-                      <>
-                        Download Now
-                        <ArrowRight className="h-4 w-4" />
-                      </>
-                    )}
-                  </button>
-                </form>
-              </div>
-            ) : (
-              <div className="text-center py-6">
-                <motion.div
-                  initial={{ scale: 0.8 }}
-                  animate={{ scale: 1 }}
-                  className="mx-auto h-12 w-12 text-success flex items-center justify-center mb-4 bg-success/10 rounded-full border border-success/20"
+                    <option value="" disabled>Choose your program</option>
+                    <option value="Live Online Group Yoga Classes (3 Days/Week)">Live Online Group Classes (3 Days/Week)</option>
+                    <option value="Live Online Group Yoga Classes (5 Days/Week)">Live Online Group Classes (5 Days/Week)</option>
+                    <option value="21-Day Foundation Course">21-Day Foundation Course</option>
+                    <option value="50-Hour Yoga Foundation Certification Program">50-Hour Yoga Certification Program</option>
+                    <option value="General Consultation">Free Wellness Consultation Only</option>
+                    <option value="Others">Others</option>
+                  </select>
+                </div>
+
+                {/* Message field */}
+                <div className="text-left">
+                  <label className="block text-[10px] font-bold text-[#2C2624] uppercase tracking-widest mb-1.5 pl-0.5">
+                    Additional Notes (Optional)
+                  </label>
+                  <textarea
+                    name="message"
+                    rows={2}
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    placeholder="Health conditions, targets..."
+                    className="w-full bg-white border border-[#F2ECE4] focus:border-[#D8227A] rounded-xl py-2 px-4 text-xs text-[#2C2624] outline-none transition-all"
+                  />
+                </div>
+
+                {error && (
+                  <p className="text-xs text-red-500 text-left font-medium">{error}</p>
+                )}
+
+                {/* Submit Button */}
+                <button
+                  type="submit"
+                  className="w-full bg-gradient-to-r from-[#FD6804] to-[#D8227A] text-white font-bold py-3 px-6 rounded-full text-xs transition-all active:scale-95 flex items-center justify-center gap-2 cursor-pointer shadow-md mt-4"
                 >
-                  <CheckCircle className="h-7 w-7 text-green-500" />
-                </motion.div>
-                <h3 className="text-lg font-bold text-white mb-2">
-                  Audit Key Sent!
-                </h3>
-                <p className="text-xs text-zinc-400 leading-relaxed px-2">
-                  Thank you, <strong className="text-zinc-200">{name}</strong>. We've sent your setup download link and license key to <strong className="text-zinc-200">{email}</strong>.
-                </p>
-                <p className="text-[10px] text-zinc-500 mt-6 animate-pulse">
-                  Starting download shortly...
-                </p>
-              </div>
-            )}
+                  <MessageSquare className="h-4 w-4" />
+                  Submit & Chat on WhatsApp
+                </button>
+              </form>
+            </div>
           </motion.div>
         </div>
       )}

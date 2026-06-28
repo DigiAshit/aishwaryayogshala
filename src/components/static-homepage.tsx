@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePopup } from "./PopupContext";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   Phone, 
@@ -21,6 +22,7 @@ import {
 } from "lucide-react";
 
 export default function StaticHomepage() {
+  const { openPopup } = usePopup();
   const [activeTab, setActiveTab] = useState("week1");
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
   const [showWpPopup, setShowWpPopup] = useState(false);
@@ -104,8 +106,7 @@ export default function StaticHomepage() {
               Welcome to Aishwarya Yogshala, where yoga is more than just a workout, it is a journey towards a healthier body, a calmer mind, and a more balanced life. Led by Aishwarya Sharma, a qualified Wellness Coach with over 5 years of experience.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mb-10">
-              <Link 
-                href="#contact" 
+              <Link href="#contact" onClick={(e) => { e.preventDefault(); openPopup(); }} 
                 className="bg-gradient-to-r from-[#FD6804] to-[#D8227A] hover:shadow-lg hover:shadow-pink-500/20 text-white font-bold py-4 px-8 rounded-full text-center transition-all cursor-pointer active:scale-95 text-sm"
               >
                 Book a Free Consultation
@@ -252,8 +253,7 @@ export default function StaticHomepage() {
           </div>
 
           <div className="text-center mb-24">
-            <Link 
-              href="#contact" 
+            <Link href="#contact" onClick={(e) => { e.preventDefault(); openPopup(); }} 
               className="bg-gradient-to-r from-[#FD6804] to-[#D8227A] hover:shadow-lg text-white font-bold py-4 px-8 rounded-full transition-all inline-block active:scale-95 text-sm"
             >
               Start Relieving Pain Now
@@ -285,8 +285,7 @@ export default function StaticHomepage() {
                     <span><strong>Beginner-Friendly:</strong> Custom progressions tailored to all levels and age groups.</span>
                   </li>
                 </ul>
-                <Link 
-                  href="#contact" 
+                <Link href="#contact" onClick={(e) => { e.preventDefault(); openPopup(); }} 
                   className="bg-gradient-to-r from-[#FD6804] to-[#D8227A] text-white font-bold py-3.5 px-7 rounded-full inline-block transition-all text-sm shadow-md"
                 >
                   Book Your Free Consultation
@@ -372,6 +371,7 @@ export default function StaticHomepage() {
                   <span className="bg-[#FDFBF7] border border-[#F2ECE4] text-xs font-semibold px-4 py-2 rounded-full text-[#2C2624]">Lifestyle Disorders</span>
                   <span className="bg-[#FDFBF7] border border-[#F2ECE4] text-xs font-semibold px-4 py-2 rounded-full text-[#2C2624]">Therapeutic Yoga</span>
                   <span className="bg-[#FDFBF7] border border-[#F2ECE4] text-xs font-semibold px-4 py-2 rounded-full text-[#2C2624]">Prenatal Yoga</span>
+                  <span className="bg-[#FDFBF7] border border-[#F2ECE4] text-xs font-semibold px-4 py-2 rounded-full text-[#2C2624]">Postnatal Yoga</span>
                   <span className="bg-[#FDFBF7] border border-[#F2ECE4] text-xs font-semibold px-4 py-2 rounded-full text-[#2C2624]">Senior Citizens</span>
                   <span className="bg-[#FDFBF7] border border-[#F2ECE4] text-xs font-semibold px-4 py-2 rounded-full text-[#2C2624]">Kids Yoga</span>
                 </div>
@@ -388,8 +388,7 @@ export default function StaticHomepage() {
                 </div>
               </div>
 
-              <Link 
-                href="#contact" 
+              <Link href="#contact" onClick={(e) => { e.preventDefault(); openPopup(); }} 
                 className="bg-gradient-to-r from-[#FD6804] to-[#D8227A] text-white font-bold py-3.5 px-7 rounded-full text-sm shadow-md"
               >
                 Book Consultation with Aishwarya
@@ -440,9 +439,7 @@ export default function StaticHomepage() {
                     </ul>
                   </div>
                 </div>
-                <Link 
-                  href="#contact" 
-                  onClick={() => selectPricingPreset("Live Online Group Yoga Classes (5 Days/Week)")}
+                <Link href="#contact" onClick={(e) => { e.preventDefault(); selectPricingPreset("Live Online Group Yoga Classes (5 Days/Week)"); openPopup(); }}
                   className="bg-gradient-to-r from-[#FD6804] to-[#D8227A] text-white font-bold py-3 px-6 rounded-full text-sm shadow-md"
                 >
                   Register for Group Classes
@@ -538,9 +535,7 @@ export default function StaticHomepage() {
                     )}
                   </div>
                 </div>
-                <Link 
-                  href="#contact" 
-                  onClick={() => selectPricingPreset("21-Day Foundation Course")}
+                <Link href="#contact" onClick={(e) => { e.preventDefault(); selectPricingPreset("21-Day Foundation Course"); openPopup(); }}
                   className="bg-gradient-to-r from-[#FD6804] to-[#D8227A] text-white font-bold py-3 px-6 rounded-full text-sm shadow-md"
                 >
                   Enroll in Foundation Course
@@ -574,9 +569,7 @@ export default function StaticHomepage() {
                     <p className="text-[#726A67]">The science of breath, nervous system controls, and traditional Kriyas.</p>
                   </div>
                 </div>
-                <Link 
-                  href="#contact" 
-                  onClick={() => selectPricingPreset("50-Hour Yoga Foundation Certification Program")}
+                <Link href="#contact" onClick={(e) => { e.preventDefault(); selectPricingPreset("50-Hour Yoga Foundation Certification Program"); openPopup(); }}
                   className="bg-gradient-to-r from-[#FD6804] to-[#D8227A] text-white font-bold py-3 px-6 rounded-full text-sm shadow-md"
                 >
                   Enroll in Certification Program
@@ -666,8 +659,7 @@ export default function StaticHomepage() {
           </div>
 
           <div className="text-center mt-12">
-            <Link 
-              href="#contact" 
+            <Link href="#contact" onClick={(e) => { e.preventDefault(); openPopup(); }} 
               className="bg-gradient-to-r from-[#FD6804] to-[#D8227A] text-white font-bold py-4 px-8 rounded-full transition-all inline-block active:scale-95 text-sm"
             >
               Start Your Transformation Today
@@ -728,7 +720,7 @@ export default function StaticHomepage() {
                   <li className="flex gap-4">
                     <span className="text-lg">🕒</span>
                     <div>
-                      <span className="block font-bold text-sm text-[#2C2624]">8:00 PM – 9:00 PM</span>
+                      <span className="block font-bold text-sm text-[#2C2624]">7:45 PM – 8:45 PM</span>
                       <span className="text-xs text-[#726A67]">Live Online Group Session</span>
                     </div>
                   </li>
@@ -748,8 +740,7 @@ export default function StaticHomepage() {
             </div>
             
             <div className="text-center">
-              <Link 
-                href="#contact" 
+              <Link href="#contact" onClick={(e) => { e.preventDefault(); openPopup(); }} 
                 className="bg-gradient-to-r from-[#FD6804] to-[#D8227A] text-white font-bold py-3.5 px-7 rounded-full text-sm shadow-md"
               >
                 Book Your Timing Slot
@@ -784,9 +775,7 @@ export default function StaticHomepage() {
                 <li className="flex gap-2">🌸 Posture Corrections</li>
                 <li className="flex gap-2">🌸 Breathwork & Meditation</li>
               </ul>
-              <Link 
-                href="#contact" 
-                onClick={() => selectPricingPreset("Live Online Group Yoga Classes (3 Days/Week)")}
+              <Link href="#contact" onClick={(e) => { e.preventDefault(); selectPricingPreset("Live Online Group Yoga Classes (3 Days/Week)"); openPopup(); }}
                 className="bg-white hover:bg-[#F2ECE4] text-[#592893] border border-[#F2ECE4] font-bold py-2.5 px-6 rounded-xl w-full text-center transition-all text-xs"
               >
                 Book Slot
@@ -809,9 +798,7 @@ export default function StaticHomepage() {
                 <li className="flex gap-2">🌸 Posture Corrections</li>
                 <li className="flex gap-2">🌸 Breathwork & Meditation</li>
               </ul>
-              <Link 
-                href="#contact" 
-                onClick={() => selectPricingPreset("Live Online Group Yoga Classes (5 Days/Week)")}
+              <Link href="#contact" onClick={(e) => { e.preventDefault(); selectPricingPreset("Live Online Group Yoga Classes (5 Days/Week)"); openPopup(); }}
                 className="bg-gradient-to-r from-[#FD6804] to-[#D8227A] text-white font-bold py-2.5 px-6 rounded-xl w-full text-center transition-all text-xs"
               >
                 Book Slot
@@ -833,9 +820,7 @@ export default function StaticHomepage() {
                 <li className="flex gap-2">🌸 Posture Corrections</li>
                 <li className="flex gap-2">🌸 Certificate of Completion</li>
               </ul>
-              <Link 
-                href="#contact" 
-                onClick={() => selectPricingPreset("21-Day Foundation Course")}
+              <Link href="#contact" onClick={(e) => { e.preventDefault(); selectPricingPreset("21-Day Foundation Course"); openPopup(); }}
                 className="bg-white hover:bg-[#F2ECE4] text-[#592893] border border-[#F2ECE4] font-bold py-2.5 px-6 rounded-xl w-full text-center transition-all text-xs"
               >
                 Enroll Now
@@ -857,9 +842,7 @@ export default function StaticHomepage() {
                 <li className="flex gap-2">🌸 Practice Sequencing Study</li>
                 <li className="flex gap-2">🌸 Certificate of Completion</li>
               </ul>
-              <Link 
-                href="#contact" 
-                onClick={() => selectPricingPreset("50-Hour Yoga Foundation Certification Program")}
+              <Link href="#contact" onClick={(e) => { e.preventDefault(); selectPricingPreset("50-Hour Yoga Foundation Certification Program"); openPopup(); }}
                 className="bg-white hover:bg-[#F2ECE4] text-[#592893] border border-[#F2ECE4] font-bold py-2.5 px-6 rounded-xl w-full text-center transition-all text-xs"
               >
                 Enroll Now
@@ -940,8 +923,7 @@ export default function StaticHomepage() {
 
           <div className="text-center mt-12 text-xs text-[#726A67]">
             <p className="mb-4">These rules exist so that the minute you step onto your mat, you don't have to worry about a thing. The structure is already holding the space for you.</p>
-            <Link 
-              href="#contact" 
+            <Link href="#contact" onClick={(e) => { e.preventDefault(); openPopup(); }} 
               className="bg-gradient-to-r from-[#FD6804] to-[#D8227A] text-white font-bold py-3.5 px-7 rounded-full inline-block shadow-md text-sm"
             >
               I Agree & Want to Register
@@ -1010,8 +992,7 @@ export default function StaticHomepage() {
           </div>
 
           <div className="text-center mt-12">
-            <Link 
-              href="#contact" 
+            <Link href="#contact" onClick={(e) => { e.preventDefault(); openPopup(); }} 
               className="bg-gradient-to-r from-[#FD6804] to-[#D8227A] text-white font-bold py-4 px-8 rounded-full inline-block active:scale-95 text-sm"
             >
               Start Your Success Story Today
