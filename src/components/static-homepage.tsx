@@ -142,8 +142,8 @@ export default function StaticHomepage() {
           >
             <div className="relative w-full max-w-[420px] aspect-[4/3] rounded-2xl overflow-hidden border-4 border-white shadow-2xl z-10">
               <img 
-                src="/images/landscape-1.jpeg" 
-                alt="Yoga Group Class at Aishwarya Yogshala" 
+                src="/images/portrait-2.jpeg" 
+                alt="Aishwarya Sharma Yoga Pose" 
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
@@ -327,7 +327,7 @@ export default function StaticHomepage() {
                 <ul className="space-y-3">
                   <li>
                     <a href="/education/Masters%20Of%20Yoga.pdf" target="_blank" className="text-sm text-[#2C2624] hover:text-[#D8227A] flex items-center justify-between border-b border-transparent hover:border-[#D8227A] pb-1 transition-all">
-                      <span>Masters Degree in Yoga</span>
+                      <span>Masters in Yoga (Acharya)</span>
                       <span className="text-xs">📄</span>
                     </a>
                   </li>
@@ -426,18 +426,14 @@ export default function StaticHomepage() {
                 
                 <div className="bg-[#FDFBF7] border border-[#F2ECE4] rounded-xl p-5 mb-8 w-full">
                   <h4 className="font-serif font-bold text-sm text-[#592893] mb-4">What’s Included in Every 60-Min Class?</h4>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <ul className="space-y-2 text-xs text-[#2C2624] font-medium">
-                      <li className="flex items-center gap-2">🧘 Centering & Breath</li>
-                      <li className="flex items-center gap-2">🧘 Joint Warm-Up</li>
-                      <li className="flex items-center gap-2">🧘 Yoga Asanas</li>
-                    </ul>
-                    <ul className="space-y-2 text-xs text-[#2C2624] font-medium">
-                      <li className="flex items-center gap-2">🧘 Strength & Flexibility</li>
-                      <li className="flex items-center gap-2">🧘 Meditation & Pranayama</li>
-                      <li className="flex items-center gap-2">🧘 Relaxation (Shavasana)</li>
-                    </ul>
-                  </div>
+                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-4 text-xs text-[#2C2624] font-medium">
+                    <li className="flex items-center gap-2">🧘 Centering & Breath</li>
+                    <li className="flex items-center gap-2">🧘 Joint Warm-Up</li>
+                    <li className="flex items-center gap-2">🧘 Yoga Asanas</li>
+                    <li className="flex items-center gap-2">🧘 Strength & Flexibility</li>
+                    <li className="flex items-center gap-2">🧘 Meditation & Pranayama</li>
+                    <li className="flex items-center gap-2">🧘 Relaxation (Shavasana)</li>
+                  </ul>
                 </div>
                 <Link href="#contact" onClick={(e) => { e.preventDefault(); selectPricingPreset("Live Online Group Yoga Classes (5 Days/Week)"); openPopup(); }}
                   className="bg-gradient-to-r from-[#FD6804] to-[#D8227A] text-white font-bold py-3 px-6 rounded-full text-sm shadow-md"
@@ -557,18 +553,17 @@ export default function StaticHomepage() {
                   <span className="font-serif font-bold text-lg text-[#592893]">₹7,999 / $199 (One-time)</span>
                 </div>
 
-                <p className="text-sm text-[#726A67] mb-6">For those who want to transition from a casual practitioner to a knowledgeable yogi. This program dives deep into the academic, anatomical, and philosophical aspects of traditional yoga.</p>
+                <p className="text-sm text-[#726A67] mb-4">For those who want to transition from a casual practitioner to a knowledgeable yogi. This program dives deep into the academic, anatomical, and philosophical aspects of traditional yoga.</p>
                 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mb-8 text-xs">
-                  <div className="bg-[#FDFBF7] border border-[#F2ECE4] rounded-lg p-4">
-                    <h5 className="font-bold text-[#592893] mb-1">1. Anatomy & Alignment</h5>
-                    <p className="text-[#726A67]">Study bones, muscles, and joint mechanics in asanas for safe practice.</p>
-                  </div>
-                  <div className="bg-[#FDFBF7] border border-[#F2ECE4] rounded-lg p-4">
-                    <h5 className="font-bold text-[#592893] mb-1">2. Pranayama & Physiology</h5>
-                    <p className="text-[#726A67]">The science of breath, nervous system controls, and traditional Kriyas.</p>
-                  </div>
-                </div>
+                <ul className="space-y-2 text-xs text-[#2C2624] font-medium mb-8">
+                  <li className="flex items-center gap-2">🧘 Comprehensive Yoga Theory & Practical Training</li>
+                  <li className="flex items-center gap-2">🧘 Alignment & Safe Practice Techniques</li>
+                  <li className="flex items-center gap-2">🧘 Teaching Methodology Basics</li>
+                  <li className="flex items-center gap-2">🧘 Yoga Philosophy & Lifestyle</li>
+                  <li className="flex items-center gap-2">🧘 Anatomy & Physiology for Yoga</li>
+                  <li className="flex items-center gap-2">🧘 Pranayama & Meditation Practices</li>
+                  <li className="flex items-center gap-2">🧘 Professional Guidance & Mentor Support</li>
+                </ul>
                 <Link href="#contact" onClick={(e) => { e.preventDefault(); selectPricingPreset("50-Hour Yoga Foundation Certification Program"); openPopup(); }}
                   className="bg-gradient-to-r from-[#FD6804] to-[#D8227A] text-white font-bold py-3 px-6 rounded-full text-sm shadow-md"
                 >
@@ -580,7 +575,7 @@ export default function StaticHomepage() {
                 <div className="absolute inset-0 bg-gradient-to-t from-[#592893]/70 to-transparent flex items-end p-8">
                   <div>
                     <h4 className="font-serif font-bold text-white text-lg mb-2">Key Outcomes</h4>
-                    <p className="text-white/80 text-xs leading-relaxed">Receive a verified Certificate of Completion, sequencing templates, and direct lifetime mentorship under Aishwarya Sharma.</p>
+                    <p className="text-white/80 text-xs leading-relaxed">Receive a verified Certificate of Completion, and direct lifetime mentorship under Aishwarya Sharma.</p>
                   </div>
                 </div>
               </div>
@@ -819,6 +814,7 @@ export default function StaticHomepage() {
                 <li className="flex gap-2">🌸 Step-by-Step Fundamentals</li>
                 <li className="flex gap-2">🌸 Posture Corrections</li>
                 <li className="flex gap-2">🌸 Certificate of Completion</li>
+                <li className="flex gap-2">🌸 Foundation Manual</li>
               </ul>
               <Link href="#contact" onClick={(e) => { e.preventDefault(); selectPricingPreset("21-Day Foundation Course"); openPopup(); }}
                 className="bg-white hover:bg-[#F2ECE4] text-[#592893] border border-[#F2ECE4] font-bold py-2.5 px-6 rounded-xl w-full text-center transition-all text-xs"
@@ -828,7 +824,8 @@ export default function StaticHomepage() {
             </div>
 
             {/* Card 4 */}
-            <div className="bg-[#FDFBF7] rounded-3xl border border-[#F2ECE4] p-8 shadow-sm flex flex-col items-center text-center">
+            <div className="bg-white rounded-3xl border-2 border-[#592893] p-8 shadow-md flex flex-col items-center text-center relative">
+              <div className="absolute top-4 right-4 bg-[#592893] text-white text-[9px] uppercase tracking-wider font-semibold py-1 px-3 rounded-full">Pro Choice</div>
               <h3 className="font-serif font-bold text-lg text-[#2C2624] mb-1">Certification</h3>
               <p className="text-xs text-[#726A67] mb-6">50-Hour Certification</p>
               <div className="flex flex-col gap-1 items-center mb-6 pb-6 border-b border-[#F2ECE4] w-full">
@@ -841,9 +838,10 @@ export default function StaticHomepage() {
                 <li className="flex gap-2">🌸 Anatomy & Philosophy</li>
                 <li className="flex gap-2">🌸 Practice Sequencing Study</li>
                 <li className="flex gap-2">🌸 Certificate of Completion</li>
+                <li className="flex gap-2">🌸 Certification Workbook</li>
               </ul>
               <Link href="#contact" onClick={(e) => { e.preventDefault(); selectPricingPreset("50-Hour Yoga Foundation Certification Program"); openPopup(); }}
-                className="bg-white hover:bg-[#F2ECE4] text-[#592893] border border-[#F2ECE4] font-bold py-2.5 px-6 rounded-xl w-full text-center transition-all text-xs"
+                className="bg-[#592893] text-white font-bold py-2.5 px-6 rounded-xl w-full text-center transition-all text-xs"
               >
                 Enroll Now
               </Link>
@@ -1092,9 +1090,9 @@ export default function StaticHomepage() {
                   </a>
                   <a href="mailto:sharmaaishwarya582@gmail.com" className="bg-white p-4 rounded-xl border border-[#F2ECE4] flex items-center gap-4 hover:border-[#D8227A] transition-all">
                     <span className="text-lg">✉️</span>
-                    <div>
+                    <div className="overflow-hidden">
                       <span className="block text-[10px] uppercase text-[#726A67]">Email Address</span>
-                      <span className="block font-bold text-sm text-[#2C2624]">sharmaaishwarya582@gmail.com</span>
+                      <span className="block font-bold text-sm text-[#2C2624] truncate">sharmaaishwarya582@gmail.com</span>
                     </div>
                   </a>
                   <a href="https://instagram.com/aishwaryawellnessacademy" className="bg-white p-4 rounded-xl border border-[#F2ECE4] flex items-center gap-4 hover:border-[#D8227A] transition-all" target="_blank" rel="noopener noreferrer">
